@@ -4,9 +4,12 @@ import matplotlib.pyplot as plt
 # --- CONFIGURATION ---
 # Change this variable to analyze a different year
 TARGET_YEAR = 2019
+# Set to True to remove countries with < 1 litre of alcohol consumption
+EXCLUDE_LOW_ALCOHOL = True
+alcohol_threshold = 0.1  # litres of pure alcohol per capita
 # ---------------------
 
-# Increase printing width to view all columns
+# Increase printing width to view all columns in the console
 pd.set_option('display.max_columns', None)
 pd.set_option('display.width', 1000)
 
@@ -19,8 +22,7 @@ df_gdp = pd.read_csv('gdp-per-capita-worldbank.csv')
 # 2. Rename columns for clean merging
 df_alcohol.columns = ['Country', 'Code', 'Year', 'Alcohol_Consumption']
 df_life.columns = ['Country', 'Code', 'Year', 'Life_Expectancy']
-# We assume the user's gdp file has 5 columns. We will drop the 5th to avoid conflicts.
-df_gdp.columns = ['Country', 'Code', 'Year', 'GDP_per_Capita', 'Continent_Name_Drop']
+df_gdp.columns = ['Country', 'Code', 'Year', 'GDP_per_Capita', 'Continent_Name']
 
 # 3. Filter for the Target Year
 df_alcohol_year = df_alcohol[df_alcohol['Year'] == TARGET_YEAR]
@@ -43,7 +45,7 @@ final_df = final_df.dropna(subset=['Code'])
 df_country_code = df_country_code[['Three_Letter_Country_Code', 'Continent_Name']]
 df_country_code.columns = ['Code', 'Continent']
 
-# Drop duplicate ISO codes to ensure 1-to-1 matching
+# Drop duplicate ISO codes (e.g., transcontinental nations) to ensure 1-to-1 matching
 df_country_code_clean = df_country_code.drop_duplicates(subset=['Code'], keep='first')
 
 # 6. Second Merge: Add Continent Column
@@ -63,23 +65,39 @@ final_df_all = pd.merge(
     how='inner'
 )
 
+
+total_countries = len(final_df_all)
+# Optional: Exclude low-consuming countries
+
+if EXCLUDE_LOW_ALCOHOL:
+    final_df_all = final_df_all[final_df_all['Alcohol_Consumption'] >= alcohol_threshold]
+total_countries_after_filter = len(final_df_all)
+# Also, write how many countries remain and what was the total
+print(f"\nTotal Countries in {TARGET_YEAR}: {total_countries}")
+print(f"Countries with >= {alcohol_threshold} litre of alcohol consumption: {total_countries_after_filter}")
+
+
 # 8. Create GDP Categories (Quartiles)
 # pd.qcut divides the countries into 4 equally sized groups based on wealth
 gdp_labels = ['Low Income', 'Lower-Middle', 'Upper-Middle', 'High Income']
 final_df_all['GDP_Category'] = pd.qcut(final_df_all['GDP_per_Capita'], q=4, labels=gdp_labels)
 
 
-# ---------------------------------------------------------
-# CORRELATION ANALYSIS
-# ---------------------------------------------------------
-print(f"\n--- CORRELATION COEFFICIENTS ({TARGET_YEAR}) ---")
 
-# Global Correlation
-global_corr = final_df_all['Alcohol_Consumption'].corr(final_df_all['Life_Expectancy'])
+# ---------------------------------------------------------
+# CORRELATION ANALYSIS (3x3 Matrix)
+# ---------------------------------------------------------
+print(f"\n--- CORRELATION MATRIX ({TARGET_YEAR}) ---")
+
+# Create a simple 3x3 correlation matrix for the 3 main numeric variables
+corr_matrix = final_df_all[['Alcohol_Consumption', 'Life_Expectancy', 'GDP_per_Capita']].corr()
+print(corr_matrix.round(3))
+
+print("----------------------------------------\n")
+
 
 # Regional Correlation
 print("\n1. BY CONTINENT:")
-print(f"  - Global (All Countries): r = {global_corr:.3f}")
 for continent, group in final_df_all.groupby('Continent'):
     if len(group) > 1:
         corr = group['Alcohol_Consumption'].corr(group['Life_Expectancy'])
@@ -89,7 +107,6 @@ for continent, group in final_df_all.groupby('Continent'):
 
 # Economic Correlation
 print("\n2. BY ECONOMIC STATUS (GDP Category):")
-print(f"  - Global (All Countries): r = {global_corr:.3f}")
 for category, group in final_df_all.groupby('GDP_Category', observed=False):
     if len(group) > 1:
         corr = group['Alcohol_Consumption'].corr(group['Life_Expectancy'])
@@ -99,6 +116,7 @@ for category, group in final_df_all.groupby('GDP_Category', observed=False):
 
 print("----------------------------------------\n")
 
+
 # ---------------------------------------------------------
 # PLOT 1: Single Color Scatter Plot (No Continent Grouping)
 # ---------------------------------------------------------
@@ -106,84 +124,98 @@ plt.figure(figsize=(10, 6))
 plt.scatter(
     final_df_all['Alcohol_Consumption'],
     final_df_all['Life_Expectancy'],
-    alpha=0.7, edgecolors='k'
+    alpha=0.7,
+    edgecolors='k'
 )
 plt.title(f'Alcohol Consumption vs Life Expectancy ({TARGET_YEAR})', fontsize=14)
-plt.xlabel('Alcohol Consumption (Litres per Capita)', fontsize=12)
-plt.ylabel('Life Expectancy (Years)', fontsize=12)
+plt.xlabel('Alcohol Consumption (Litres of Pure Alcohol per Capita)', fontsize=12)
+plt.ylabel('Life Expectancy at Birth (Years)', fontsize=12)
 plt.grid(True, linestyle='--', alpha=0.6)
 plt.tight_layout()
 plt.show()
 
 # ---------------------------------------------------------
-# PLOT 2: Scatter Plot (Grouped by Continent)
+# PLOT 2: Multi-Color Scatter Plot (Grouped by Continent)
 # ---------------------------------------------------------
 plt.figure(figsize=(10, 6))
+# Loop through each continent group and plot them with a label
 for continent, group in final_df_all.groupby('Continent'):
     plt.scatter(
         group['Alcohol_Consumption'],
         group['Life_Expectancy'],
-        label=continent, alpha=0.7, edgecolors='k', s=50
+        label=continent,
+        alpha=0.7,
+        edgecolors='k',
+        s=50
     )
-plt.title(f'Alcohol vs Life Expectancy by Continent ({TARGET_YEAR})', fontsize=14)
-plt.xlabel('Alcohol Consumption (Litres per Capita)', fontsize=12)
-plt.ylabel('Life Expectancy (Years)', fontsize=12)
+
+plt.title(f'Alcohol Consumption vs Life Expectancy by Continent ({TARGET_YEAR})', fontsize=14)
+plt.xlabel('Alcohol Consumption (Litres of Pure Alcohol per Capita)', fontsize=12)
+plt.ylabel('Life Expectancy at Birth (Years)', fontsize=12)
 plt.legend(title='Continent', bbox_to_anchor=(1.05, 1), loc='upper left')
 plt.grid(True, linestyle='--', alpha=0.6)
 plt.tight_layout()
 plt.show()
 
 # ---------------------------------------------------------
-# PLOT 3: Life Expectancy vs GDP per Capita (The Preston Curve)
+# PLOT 3: Life Expectancy vs GDP (Log Scale)
 # ---------------------------------------------------------
 plt.figure(figsize=(10, 6))
 plt.scatter(
     final_df_all['GDP_per_Capita'],
     final_df_all['Life_Expectancy'],
-    alpha=0.7, edgecolors='k', color='seagreen'
+    alpha=0.7,
+    edgecolors='k',
+    color='mediumseagreen'
 )
-plt.title(f'Life Expectancy vs GDP per Capita ({TARGET_YEAR})', fontsize=14)
-plt.xlabel('GDP per Capita (USD) - Logarithmic Scale', fontsize=12)
-plt.ylabel('Life Expectancy (Years)', fontsize=12)
-# Using a log scale for the X-axis is standard for GDP to spread out the data
+# We use a log scale here to unbunch the lower-income nations (Preston Curve)
 plt.xscale('log')
+plt.title(f'Life Expectancy vs GDP per Capita ({TARGET_YEAR})', fontsize=14)
+plt.xlabel('GDP per Capita (Log Scale)', fontsize=12)
+plt.ylabel('Life Expectancy at Birth (Years)', fontsize=12)
 plt.grid(True, linestyle='--', alpha=0.6)
 plt.tight_layout()
 plt.show()
 
 # ---------------------------------------------------------
-# PLOT 4: Alcohol Consumption vs GDP per Capita
+# PLOT 4: Alcohol Consumption vs GDP (Log Scale)
 # ---------------------------------------------------------
 plt.figure(figsize=(10, 6))
 plt.scatter(
     final_df_all['GDP_per_Capita'],
     final_df_all['Alcohol_Consumption'],
-    alpha=0.7, edgecolors='k', color='coral'
+    alpha=0.7,
+    edgecolors='k',
+    color='coral'
 )
-plt.title(f'Alcohol Consumption vs GDP per Capita ({TARGET_YEAR})', fontsize=14)
-plt.xlabel('GDP per Capita (USD) - Logarithmic Scale', fontsize=12)
-plt.ylabel('Alcohol Consumption (Litres per Capita)', fontsize=12)
 plt.xscale('log')
+plt.title(f'Alcohol Consumption vs GDP per Capita ({TARGET_YEAR})', fontsize=14)
+plt.xlabel('GDP per Capita (Log Scale)', fontsize=12)
+plt.ylabel('Alcohol Consumption (Litres per Capita)', fontsize=12)
 plt.grid(True, linestyle='--', alpha=0.6)
 plt.tight_layout()
 plt.show()
 
 # ---------------------------------------------------------
-# PLOT 5: Scatter Plot (Grouped by GDP Category)
+# PLOT 5: Multi-Color Scatter Plot (Grouped by GDP Category)
 # ---------------------------------------------------------
 plt.figure(figsize=(10, 6))
-# Loop through the ordered GDP categories we created with qcut
-for category in gdp_labels:
-    group = final_df_all[final_df_all['GDP_Category'] == category]
+# Loop through each wealth quartile and plot them with a label
+for category, group in final_df_all.groupby('GDP_Category', observed=False):
     plt.scatter(
         group['Alcohol_Consumption'],
         group['Life_Expectancy'],
-        label=category, alpha=0.7, edgecolors='k', s=50
+        label=category,
+        alpha=0.7,
+        edgecolors='k',
+        s=50
     )
-plt.title(f'Alcohol vs Life Expectancy by Economic Status ({TARGET_YEAR})', fontsize=14)
-plt.xlabel('Alcohol Consumption (Litres per Capita)', fontsize=12)
-plt.ylabel('Life Expectancy (Years)', fontsize=12)
+
+plt.title(f'Alcohol Consumption vs Life Expectancy by GDP Bracket ({TARGET_YEAR})', fontsize=14)
+plt.xlabel('Alcohol Consumption (Litres of Pure Alcohol per Capita)', fontsize=12)
+plt.ylabel('Life Expectancy at Birth (Years)', fontsize=12)
 plt.legend(title='GDP Category', bbox_to_anchor=(1.05, 1), loc='upper left')
 plt.grid(True, linestyle='--', alpha=0.6)
 plt.tight_layout()
 plt.show()
+
