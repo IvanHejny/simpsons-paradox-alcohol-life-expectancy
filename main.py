@@ -14,10 +14,10 @@ pd.set_option('display.max_columns', None)
 pd.set_option('display.width', 1000)
 
 # 1. Load CSV files
-df_alcohol = pd.read_csv('total-alcohol-consumption-per-capita-litres-of-pure-alcohol.csv')
-df_life = pd.read_csv('life-expectancy-at-birth-who-gho.csv')
-df_country_code = pd.read_csv('country-and-continent-codes-list-csv.csv')
-df_gdp = pd.read_csv('gdp-per-capita-worldbank.csv')
+df_alcohol = pd.read_csv('data/total-alcohol-consumption-per-capita-litres-of-pure-alcohol.csv')
+df_life = pd.read_csv('data/life-expectancy-at-birth-who-gho.csv')
+df_country_code = pd.read_csv('data/country-and-continent-codes-list-csv.csv')
+df_gdp = pd.read_csv('data/gdp-per-capita-worldbank.csv')
 
 # 2. Rename columns for clean merging
 df_alcohol.columns = ['Country', 'Code', 'Year', 'Alcohol_Consumption']
