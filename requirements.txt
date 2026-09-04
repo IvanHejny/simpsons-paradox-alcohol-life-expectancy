@@ -1,0 +1,6 @@
+# Direct dependencies for main.py.
+# Recreate the environment from scratch with:
+#   python3.13 -m venv .venv
+#   .venv/bin/python -m pip install -r requirements.txt
+pandas==3.0.5
+matplotlib==3.11.1
