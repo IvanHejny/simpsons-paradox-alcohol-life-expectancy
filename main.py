@@ -19,6 +19,7 @@ df_life = pd.read_csv('data/life-expectancy-at-birth-who-gho.csv')
 df_country_code = pd.read_csv('data/country-and-continent-codes-list-csv.csv')
 df_gdp = pd.read_csv('data/gdp-per-capita-worldbank.csv')
 
+
 # 2. Rename columns for clean merging
 df_alcohol.columns = ['Country', 'Code', 'Year', 'Alcohol_Consumption']
 df_life.columns = ['Country', 'Code', 'Year', 'Life_Expectancy']
@@ -26,8 +27,11 @@ df_gdp.columns = ['Country', 'Code', 'Year', 'GDP_per_Capita', 'Continent_Name']
 
 # 3. Filter for the Target Year
 df_alcohol_year = df_alcohol[df_alcohol['Year'] == TARGET_YEAR]
+# df_alcohol_year = {DataFrame: (200,4)} = ['Country', 'Code', 'Year', 'Alcohol_Consumption']
 df_life_year = df_life[df_life['Year'] == TARGET_YEAR]
+# df_life_year = {DataFrame: (192,4)} = ['Country', 'Code', 'Year', 'Life_Expectancy']
 df_gdp_year = df_gdp[df_gdp['Year'] == TARGET_YEAR]
+# df_gdp_year = {DataFrame: (192,5)} = ['Country', 'Code', 'Year', 'GDP_per_Capita', 'Continent_Name']
 
 # 4. First Merge: Alcohol + Life Expectancy
 # Merging on ['Code', 'Country', 'Year'] avoids duplicate '_x' and '_y' columns
@@ -38,8 +42,14 @@ final_df = pd.merge(
     how='inner'
 )
 
+
+print('size of final_df after first merge:', final_df.shape)
+# final_df = {DataFrame: (183,5)} = ['Country', 'Code', 'Year', 'Alcohol_Consumption', 'Life_Expectancy']
+
 # Remove regional total rows that lack an ISO code
 final_df = final_df.dropna(subset=['Code'])
+print('size of final_df after dropping rows with missing ISO codes:', final_df.shape)
+# final_df = {DataFrame: (183,5)} = ['Country', 'Code', 'Year', 'Alcohol_Consumption', 'Life_Expectancy']
 
 # 5. Prepare Continent Data & Deduplicate
 df_country_code = df_country_code[['Three_Letter_Country_Code', 'Continent_Name']]
