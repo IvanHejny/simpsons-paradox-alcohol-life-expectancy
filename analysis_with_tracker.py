@@ -48,13 +48,22 @@ print(f"df_gdp_year:     {len(df_gdp_year)} rows")
 # df_country_code is the universe -- it's the most complete list of valid
 # ISO codes, so every code in the other tables should be a subset of it.
 # ---------------------------------------------------------
-tracker = df_country_code[['Code']].dropna().drop_duplicates()
+tracker = df_country_code[['Code']].dropna()
+# drops 4 rows Disputed Territory, Iraq-Saudi Arabia Neutral Zone, United Nationa Neutral Zone and Spratly Islands
+
+# find Codes for duplicates
+print(tracker[tracker.duplicated(subset=['Code'], keep=False)].drop_duplicates())
+print(df_country_code[df_country_code.duplicated(subset=['Code'], keep=False)].sort_values(by='Code'))
+
+tracker = tracker.drop_duplicates()
+
+
 # dropping duplicate ISOs here is fine because the tracker only cares about countries, not continents
 # We don't care that Georgia belongs to Europe and Asia, we just care about its unique ISO code.
 #tracker.columns = ['Code']
 print(f"ISO reference universe: {len(tracker)} codes")
 
-# Attach a readable country name from the reference table itself -- it's the
+# Attach a country name from the reference table itself -- it's the
 # only table with full coverage of every code in the universe. (If this
 # column name doesn't match your CSV, run print(df_country_code.columns)
 # to find the right one -- 'Country_Name' is standard for this particular
@@ -100,10 +109,11 @@ print('size of final_df after dropping rows with missing ISO codes:', final_df.s
 df_country_code_clean = df_country_code.drop_duplicates(subset=['Code'], keep='first')
 
 # 6. Second Merge: Add Continent Column
-final_df_step2 = pd.merge(final_df, df_country_code_clean, on='Code', how='inner')
+final_df_step2 = pd.merge(final_df, df_country_code_clean[['Code', 'Continent']], on='Code', how='inner')
 
 # 7. Third Merge: Add GDP Data
 final_df_all = pd.merge(final_df_step2, df_gdp_year[['Code', 'GDP_per_Capita']], on='Code', how='inner')
+
 
 total_countries = len(final_df_all)
 if EXCLUDE_LOW_ALCOHOL:
@@ -146,6 +156,8 @@ print(dropped_relevant[['Code', 'Country'] + condition_cols].to_string(index=Fal
 
 Path('outputs').mkdir(parents=True, exist_ok=True)
 tracker.to_csv('outputs/country_tracker.csv', index=False)
+
+
 
 # 8. Create GDP Categories (Quartiles)
 gdp_labels = ['Low Income', 'Lower-Middle', 'Upper-Middle', 'High Income']
