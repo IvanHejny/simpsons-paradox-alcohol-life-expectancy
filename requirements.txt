@@ -1,4 +1,4 @@
-# Direct dependencies for main.py.
+# Direct dependencies for analysis_basic.py and analysis_extended.py.
 # Recreate the environment from scratch with:
 #   python3.13 -m venv .venv
 #   .venv/bin/python -m pip install -r requirements.txt
