@@ -1,0 +1,251 @@
+ISO_Code,Country_Name,in_alcohol,in_life,in_gdp,in_all_three_sources,above_thresh,in_final_sample
+ABW,Aruba,0,0,1,0,0,0
+AFG,"Afghanistan, Islamic Republic of",1,1,1,1,0,0
+AGO,"Angola, Republic of",1,1,1,1,1,1
+AIA,Anguilla,0,0,0,0,0,0
+ALA,Åland Islands,0,0,0,0,0,0
+ALB,"Albania, Republic of",1,1,1,1,1,1
+AND,"Andorra, Principality of",1,0,1,0,1,0
+ANT,Netherlands Antilles,0,0,0,0,0,0
+ARE,United Arab Emirates,1,1,1,1,1,1
+ARG,"Argentina, Argentine Republic",1,1,1,1,1,1
+ARM,"Armenia, Republic of",1,1,1,1,1,1
+ASM,American Samoa,0,0,0,0,0,0
+ATA,Antarctica (the territory South of 60 deg S),0,0,0,0,0,0
+ATF,French Southern Territories,0,0,0,0,0,0
+ATG,Antigua and Barbuda,1,1,1,1,1,1
+AUS,"Australia, Commonwealth of",1,1,1,1,1,1
+AUT,"Austria, Republic of",1,1,1,1,1,1
+AZE,"Azerbaijan, Republic of",1,1,1,1,1,1
+BDI,"Burundi, Republic of",1,1,1,1,1,1
+BEL,"Belgium, Kingdom of",1,1,1,1,1,1
+BEN,"Benin, Republic of",1,1,1,1,1,1
+BES,"Bonaire, Sint Eustatius and Saba",0,0,0,0,0,0
+BFA,Burkina Faso,1,1,1,1,1,1
+BGD,"Bangladesh, People's Republic of",1,1,1,1,0,0
+BGR,"Bulgaria, Republic of",1,1,1,1,1,1
+BHR,"Bahrain, Kingdom of",1,1,1,1,1,1
+BHS,"Bahamas, Commonwealth of the",1,1,1,1,1,1
+BIH,Bosnia and Herzegovina,1,1,1,1,1,1
+BLM,Saint Barthelemy,0,0,0,0,0,0
+BLR,"Belarus, Republic of",1,1,1,1,1,1
+BLZ,Belize,1,1,1,1,1,1
+BMU,Bermuda,0,0,1,0,0,0
+BOL,"Bolivia, Republic of",1,1,1,1,1,1
+BRA,"Brazil, Federative Republic of",1,1,1,1,1,1
+BRB,Barbados,1,1,1,1,1,1
+BRN,Brunei Darussalam,1,1,1,1,1,1
+BTN,"Bhutan, Kingdom of",1,1,1,1,1,1
+BVT,Bouvet Island (Bouvetoya),0,0,0,0,0,0
+BWA,"Botswana, Republic of",1,1,1,1,1,1
+CAF,Central African Republic,1,1,1,1,1,1
+CAN,Canada,1,1,1,1,1,1
+CCK,Cocos (Keeling) Islands,0,0,0,0,0,0
+CHE,"Switzerland, Swiss Confederation",1,1,1,1,1,1
+CHL,"Chile, Republic of",1,1,1,1,1,1
+CHN,"China, People's Republic of",1,1,1,1,1,1
+CIV,"Cote d'Ivoire, Republic of",1,1,1,1,1,1
+CMR,"Cameroon, Republic of",1,1,1,1,1,1
+COD,"Congo, Democratic Republic of the",1,1,1,1,1,1
+COG,"Congo, Republic of the",1,1,1,1,1,1
+COK,Cook Islands,0,0,0,0,0,0
+COL,"Colombia, Republic of",1,1,1,1,1,1
+COM,"Comoros, Union of the",1,1,1,1,1,1
+CPV,"Cape Verde, Republic of",1,1,1,1,1,1
+CRI,"Costa Rica, Republic of",1,1,1,1,1,1
+CUB,"Cuba, Republic of",1,1,0,0,1,0
+CUW,Curaçao,0,0,1,0,0,0
+CXR,Christmas Island,0,0,0,0,0,0
+CYM,Cayman Islands,0,0,1,0,0,0
+CYP,"Cyprus, Republic of",1,1,1,1,1,1
+CZE,Czech Republic,1,1,1,1,1,1
+DEU,"Germany, Federal Republic of",1,1,1,1,1,1
+DJI,"Djibouti, Republic of",1,1,1,1,1,1
+DMA,"Dominica, Commonwealth of",1,0,1,0,1,0
+DNK,"Denmark, Kingdom of",1,1,1,1,1,1
+DOM,Dominican Republic,1,1,1,1,1,1
+DZA,"Algeria, People's Democratic Republic of",1,1,1,1,1,1
+ECU,"Ecuador, Republic of",1,1,1,1,1,1
+EGY,"Egypt, Arab Republic of",1,1,1,1,1,1
+ERI,"Eritrea, State of",1,1,0,0,1,0
+ESH,Western Sahara,0,0,0,0,0,0
+ESP,"Spain, Kingdom of",1,1,1,1,1,1
+EST,"Estonia, Republic of",1,1,1,1,1,1
+ETH,"Ethiopia, Federal Democratic Republic of",1,1,1,1,1,1
+FIN,"Finland, Republic of",1,1,1,1,1,1
+FJI,"Fiji, Republic of the Fiji Islands",1,1,1,1,1,1
+FLK,Falkland Islands (Malvinas),0,0,0,0,0,0
+FRA,"France, French Republic",1,1,1,1,1,1
+FRO,Faroe Islands,0,0,1,0,0,0
+FSM,"Micronesia, Federated States of",1,1,1,1,1,1
+GAB,"Gabon, Gabonese Republic",1,1,1,1,1,1
+GBR,United Kingdom of Great Britain & Northern Ireland,1,1,1,1,1,1
+GEO,Georgia,1,1,1,1,1,1
+GGY,"Guernsey, Bailiwick of",0,0,0,0,0,0
+GHA,"Ghana, Republic of",1,1,1,1,1,1
+GIB,Gibraltar,0,0,0,0,0,0
+GIN,"Guinea, Republic of",1,1,1,1,1,1
+GLP,Guadeloupe,0,0,0,0,0,0
+GMB,"Gambia, Republic of the",1,1,1,1,1,1
+GNB,"Guinea-Bissau, Republic of",1,1,1,1,1,1
+GNQ,"Equatorial Guinea, Republic of",1,1,1,1,1,1
+GRC,"Greece, Hellenic Republic",1,1,1,1,1,1
+GRD,Grenada,1,1,1,1,1,1
+GRL,Greenland,0,0,1,0,0,0
+GTM,"Guatemala, Republic of",1,1,1,1,1,1
+GUF,French Guiana,0,0,0,0,0,0
+GUM,Guam,0,0,0,0,0,0
+GUY,"Guyana, Co-operative Republic of",1,1,1,1,1,1
+HKG,"Hong Kong, Special Administrative Region of China",0,0,1,0,0,0
+HMD,Heard Island and McDonald Islands,0,0,0,0,0,0
+HND,"Honduras, Republic of",1,1,1,1,1,1
+HRV,"Croatia, Republic of",1,1,1,1,1,1
+HTI,"Haiti, Republic of",1,1,1,1,1,1
+HUN,"Hungary, Republic of",1,1,1,1,1,1
+IDN,"Indonesia, Republic of",1,1,1,1,1,1
+IMN,Isle of Man,0,0,0,0,0,0
+IND,"India, Republic of",1,1,1,1,1,1
+IOT,British Indian Ocean Territory (Chagos Archipelago),0,0,0,0,0,0
+IRL,Ireland,1,1,1,1,1,1
+IRN,"Iran, Islamic Republic of",1,1,1,1,1,1
+IRQ,"Iraq, Republic of",1,1,1,1,1,1
+ISL,"Iceland, Republic of",1,1,1,1,1,1
+ISR,"Israel, State of",1,1,1,1,1,1
+ITA,"Italy, Italian Republic",1,1,1,1,1,1
+JAM,Jamaica,1,1,1,1,1,1
+JEY,"Jersey, Bailiwick of",0,0,0,0,0,0
+JOR,"Jordan, Hashemite Kingdom of",1,1,1,1,1,1
+JPN,Japan,1,1,1,1,1,1
+KAZ,"Kazakhstan, Republic of",1,1,1,1,1,1
+KEN,"Kenya, Republic of",1,1,1,1,1,1
+KGZ,Kyrgyz Republic,1,1,1,1,1,1
+KHM,"Cambodia, Kingdom of",1,1,1,1,1,1
+KIR,"Kiribati, Republic of",1,1,1,1,1,1
+KNA,"Saint Kitts and Nevis, Federation of",1,0,1,0,1,0
+KOR,"Korea, Republic of",1,1,1,1,1,1
+KWT,"Kuwait, State of",1,1,1,1,0,0
+LAO,Lao People's Democratic Republic,1,1,1,1,1,1
+LBN,"Lebanon, Lebanese Republic",1,1,1,1,1,1
+LBR,"Liberia, Republic of",1,1,1,1,1,1
+LBY,Libyan Arab Jamahiriya,1,1,1,1,0,0
+LCA,Saint Lucia,1,1,1,1,1,1
+LIE,"Liechtenstein, Principality of",0,0,0,0,0,0
+LKA,"Sri Lanka, Democratic Socialist Republic of",1,1,1,1,1,1
+LSO,"Lesotho, Kingdom of",1,1,1,1,1,1
+LTU,"Lithuania, Republic of",1,1,1,1,1,1
+LUX,"Luxembourg, Grand Duchy of",1,1,1,1,1,1
+LVA,"Latvia, Republic of",1,1,1,1,1,1
+MAC,"Macao, Special Administrative Region of China",0,0,1,0,0,0
+MAF,Saint Martin,0,0,0,0,0,0
+MAR,"Morocco, Kingdom of",1,1,1,1,1,1
+MCO,"Monaco, Principality of",0,0,0,0,0,0
+MDA,"Moldova, Republic of",1,1,1,1,1,1
+MDG,"Madagascar, Republic of",1,1,1,1,1,1
+MDV,"Maldives, Republic of",1,1,1,1,1,1
+MEX,"Mexico, United Mexican States",1,1,1,1,1,1
+MHL,"Marshall Islands, Republic of the",0,0,1,0,0,0
+MKD,"Macedonia, The Former Yugoslav Republic of",1,1,1,1,1,1
+MLI,"Mali, Republic of",1,1,1,1,1,1
+MLT,"Malta, Republic of",1,1,1,1,1,1
+MMR,"Myanmar, Union of",1,1,1,1,1,1
+MNE,"Montenegro, Republic of",1,1,1,1,1,1
+MNG,Mongolia,1,1,1,1,1,1
+MNP,"Northern Mariana Islands, Commonwealth of the",0,0,0,0,0,0
+MOZ,"Mozambique, Republic of",1,1,1,1,1,1
+MRT,"Mauritania, Islamic Republic of",1,1,1,1,0,0
+MSR,Montserrat,0,0,0,0,0,0
+MTQ,Martinique,0,0,0,0,0,0
+MUS,"Mauritius, Republic of",1,1,1,1,1,1
+MWI,"Malawi, Republic of",1,1,1,1,1,1
+MYS,Malaysia,1,1,1,1,1,1
+MYT,Mayotte,0,0,0,0,0,0
+NAM,"Namibia, Republic of",1,1,1,1,1,1
+NCL,New Caledonia,0,0,0,0,0,0
+NER,"Niger, Republic of",1,1,1,1,1,1
+NFK,Norfolk Island,0,0,0,0,0,0
+NGA,"Nigeria, Federal Republic of",1,1,1,1,1,1
+NIC,"Nicaragua, Republic of",1,1,1,1,1,1
+NIU,Niue,0,0,0,0,0,0
+NLD,"Netherlands, Kingdom of the",1,1,1,1,1,1
+NOR,"Norway, Kingdom of",1,1,1,1,1,1
+NPL,"Nepal, State of",1,1,1,1,1,1
+NRU,"Nauru, Republic of",1,0,1,0,1,0
+NZL,New Zealand,1,1,1,1,1,1
+OMN,"Oman, Sultanate of",1,1,1,1,1,1
+PAK,"Pakistan, Islamic Republic of",1,1,1,1,1,1
+PAN,"Panama, Republic of",1,1,1,1,1,1
+PCN,Pitcairn Islands,0,0,0,0,0,0
+PER,"Peru, Republic of",1,1,1,1,1,1
+PHL,"Philippines, Republic of the",1,1,1,1,1,1
+PLW,"Palau, Republic of",0,0,1,0,0,0
+PNG,"Papua New Guinea, Independent State of",1,1,1,1,1,1
+POL,"Poland, Republic of",1,1,1,1,1,1
+PRI,"Puerto Rico, Commonwealth of",0,1,1,0,0,0
+PRK,"Korea, Democratic People's Republic of",1,1,0,0,1,0
+PRT,"Portugal, Portuguese Republic",1,1,1,1,1,1
+PRY,"Paraguay, Republic of",1,1,1,1,1,1
+PSE,"Palestinian Territory, Occupied",0,1,1,0,0,0
+PYF,French Polynesia,0,0,0,0,0,0
+QAT,"Qatar, State of",1,1,1,1,1,1
+REU,Reunion,0,0,0,0,0,0
+ROU,Romania,1,1,1,1,1,1
+RUS,Russian Federation,1,1,1,1,1,1
+RWA,"Rwanda, Republic of",1,1,1,1,1,1
+SAU,"Saudi Arabia, Kingdom of",1,1,1,1,0,0
+SDN,"Sudan, Republic of",1,1,1,1,0,0
+SEN,"Senegal, Republic of",1,1,1,1,1,1
+SGP,"Singapore, Republic of",1,1,1,1,1,1
+SGS,South Georgia and the South Sandwich Islands,0,0,0,0,0,0
+SHN,Saint Helena,0,0,0,0,0,0
+SJM,Svalbard & Jan Mayen Islands,0,0,0,0,0,0
+SLB,Solomon Islands,1,1,1,1,1,1
+SLE,"Sierra Leone, Republic of",1,1,1,1,1,1
+SLV,"El Salvador, Republic of",1,1,1,1,1,1
+SMR,"San Marino, Republic of",0,0,1,0,0,0
+SOM,"Somalia, Somali Republic",1,1,1,1,0,0
+SPM,Saint Pierre and Miquelon,0,0,0,0,0,0
+SRB,"Serbia, Republic of",1,1,1,1,1,1
+SSD,South Sudan,0,1,0,0,0,0
+STP,"Sao Tome and Principe, Democratic Republic of",1,1,1,1,1,1
+SUR,"Suriname, Republic of",1,1,1,1,1,1
+SVK,Slovakia (Slovak Republic),1,1,1,1,1,1
+SVN,"Slovenia, Republic of",1,1,1,1,1,1
+SWE,"Sweden, Kingdom of",1,1,1,1,1,1
+SWZ,"Swaziland, Kingdom of",1,1,1,1,1,1
+SXM,Sint Maarten (Netherlands),0,0,1,0,0,0
+SYC,"Seychelles, Republic of",1,1,1,1,1,1
+SYR,Syrian Arab Republic,1,1,1,1,1,1
+TCA,Turks and Caicos Islands,0,0,1,0,0,0
+TCD,"Chad, Republic of",1,1,1,1,1,1
+TGO,"Togo, Togolese Republic",1,1,1,1,1,1
+THA,"Thailand, Kingdom of",1,1,1,1,1,1
+TJK,"Tajikistan, Republic of",1,1,1,1,1,1
+TKL,Tokelau,0,0,0,0,0,0
+TKM,Turkmenistan,1,1,1,1,1,1
+TLS,"Timor-Leste, Democratic Republic of",1,1,1,1,1,1
+TON,"Tonga, Kingdom of",1,1,1,1,1,1
+TTO,"Trinidad and Tobago, Republic of",1,1,1,1,1,1
+TUN,"Tunisia, Tunisian Republic",1,1,1,1,1,1
+TUR,"Turkey, Republic of",1,1,1,1,1,1
+TUV,Tuvalu,1,0,1,0,1,0
+TWN,Taiwan,0,0,0,0,0,0
+TZA,"Tanzania, United Republic of",1,1,1,1,1,1
+UGA,"Uganda, Republic of",1,1,1,1,1,1
+UKR,Ukraine,1,1,1,1,1,1
+UMI,United States Minor Outlying Islands,0,0,0,0,0,0
+URY,"Uruguay, Eastern Republic of",1,1,1,1,1,1
+USA,United States of America,1,1,1,1,1,1
+UZB,"Uzbekistan, Republic of",1,1,1,1,1,1
+VAT,Holy See (Vatican City State),0,0,0,0,0,0
+VCT,Saint Vincent and the Grenadines,1,1,1,1,1,1
+VEN,"Venezuela, Bolivarian Republic of",1,1,0,0,1,0
+VGB,British Virgin Islands,0,0,0,0,0,0
+VIR,United States Virgin Islands,0,0,1,0,0,0
+VNM,"Vietnam, Socialist Republic of",1,1,1,1,1,1
+VUT,"Vanuatu, Republic of",1,1,1,1,1,1
+WLF,Wallis and Futuna,0,0,0,0,0,0
+WSM,"Samoa, Independent State of",1,1,1,1,1,1
+YEM,Yemen,1,1,0,0,0,0
+ZAF,"South Africa, Republic of",1,1,1,1,1,1
+ZMB,"Zambia, Republic of",1,1,1,1,1,1
+ZWE,"Zimbabwe, Republic of",1,1,1,1,1,1
