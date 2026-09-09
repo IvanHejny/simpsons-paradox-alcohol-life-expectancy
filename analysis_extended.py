@@ -19,7 +19,7 @@ pd.set_option('display.width', 1000)
 #   ISO_Code      -- ISO 3166-1 alpha-3 country code, the join key everywhere
 #   Country_Name  -- human-readable country name
 #   Continent     -- the country's continent, resolved once below in
-#                     df_country_code and never redefined anywhere else
+#                     df_country_code_clean and never redefined anywhere else
 
 df_alcohol = pd.read_csv('data/total-alcohol-consumption-per-capita-litres-of-pure-alcohol.csv')
 df_alcohol.columns = ['Country_Name', 'ISO_Code', 'Year', 'Alcohol_Consumption']
@@ -61,22 +61,26 @@ manual_continent = {
     'UMI': 'Oceania',   # US Minor Outlying Islands -- mostly Pacific atolls; only Navassa Island is Caribbean/North America
 }
 
-is_duplicated = df_country_code['ISO_Code'].duplicated(keep=False) # df with true for all rows that have a duplicate ISO_Code somewhere in the table
-n_duplicate_codes = df_country_code.loc[is_duplicated, 'ISO_Code'].nunique() # number of unique ISO codes that appear more than once in the table
+# The dedup below is non-destructive: df_country_code stays as the reference
+# table exactly as loaded (minus null keys), and df_country_code_clean is the
+# one-row-per-ISO_Code version used for every join and lookup downstream. Keeping
+# both lets you inspect what the resolution step actually did.
+is_duplicated = df_country_code['ISO_Code'].duplicated(keep=False)  # True for EVERY row whose ISO_Code appears more than once
+n_duplicate_codes = df_country_code.loc[is_duplicated, 'ISO_Code'].nunique()  # how many distinct codes are duplicated
 
 unambiguous = df_country_code[~is_duplicated]
 resolved = df_country_code[
     is_duplicated & (df_country_code['ISO_Code'].map(manual_continent) == df_country_code['Continent'])
 ]
-df_country_code = pd.concat([unambiguous, resolved]).sort_values('ISO_Code').reset_index(drop=True)
+df_country_code_clean = pd.concat([unambiguous, resolved]).sort_values('ISO_Code').reset_index(drop=True)
 
 # Safety net: fail loudly if the source data ever introduces a duplicate
 # this table doesn't already account for, instead of silently keep='first'-ing it.
-still_duplicated = df_country_code[df_country_code['ISO_Code'].duplicated(keep=False)]
+still_duplicated = df_country_code_clean[df_country_code_clean['ISO_Code'].duplicated(keep=False)]
 assert len(still_duplicated) == 0, f"Unresolved duplicate ISO codes -- extend manual_continent:\n{still_duplicated}"
 
 print(f"df_country_code: {n_raw} raw rows -> {n_after_dropna} after dropping missing ISO_Code "
-      f"-> {len(df_country_code)} unique ISO codes after resolving {n_duplicate_codes} duplicated codes")
+      f"-> {len(df_country_code_clean)} unique ISO codes after resolving {n_duplicate_codes} duplicated codes")
 
 # Sanity check: alcohol/life/gdp should never have a missing ISO_Code -- only
 # the reference table does (disputed territories, neutral zones), already
@@ -87,12 +91,11 @@ assert df_life['ISO_Code'].notna().all(), "df_life has rows with missing ISO_Cod
 assert df_gdp['ISO_Code'].notna().all(), "df_gdp has rows with missing ISO_Code"
 print("Checked: df_alcohol, df_life, df_gdp all have complete ISO_Code coverage (no missing keys).")
 
-# df_country_code is now exactly one row per ISO_Code, with Country_Name and
-# Continent both resolved -- every merge and lookup below can just use it
-# directly, with no separate "_clean" copy needed.
+# df_country_code_clean is now exactly one row per ISO_Code, with Country_Name
+# and Continent both resolved -- every merge and lookup below uses it.
 
 # Remove aggregate ISO that are not for single countries such as WB_, OWID_, WHO_,
-valid_iso = set(df_country_code['ISO_Code'])
+valid_iso = set(df_country_code_clean['ISO_Code'])
 df_alcohol = df_alcohol[df_alcohol['ISO_Code'].isin(valid_iso)].copy()
 df_life    = df_life[df_life['ISO_Code'].isin(valid_iso)].copy()
 df_gdp     = df_gdp[df_gdp['ISO_Code'].isin(valid_iso)].copy()
@@ -127,7 +130,7 @@ print('size of alc_life after first merge (alc + life):', alc_life.shape)
 
 # 3b. Add Continent
 alc_life_cont = pd.merge(
-    alc_life, df_country_code[['ISO_Code', 'Continent']],
+    alc_life, df_country_code_clean[['ISO_Code', 'Continent']],
     on='ISO_Code', how='inner'
 )
 print('size of alc_life_cont after second merge (+ continent):', alc_life_cont.shape)
@@ -246,7 +249,7 @@ scatter_plot(
 # all three data sources, and of those, which pass the alcohol threshold --
 # the same two-stage logic the pipeline above applies, just made explicit.
 # ---------------------------------------------------------
-tracker = df_country_code[['ISO_Code', 'Country_Name']].copy()
+tracker = df_country_code_clean[['ISO_Code', 'Country_Name']].copy()
 
 
 def flag_membership(tracker, source_df, id_col='ISO_Code'):
