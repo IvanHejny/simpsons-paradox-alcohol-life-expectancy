@@ -22,6 +22,17 @@ df_gdp = pd.read_csv('data/gdp-per-capita-worldbank.csv')
 df_alcohol.columns = ['Country', 'Code', 'Year', 'Alcohol_Consumption']
 df_life.columns = ['Country', 'Code', 'Year', 'Life_Expectancy']
 df_gdp.columns = ['Country', 'Code', 'Year', 'GDP_per_Capita', 'Continent_Name']
+# drop continent column from df_gdp (never used) (actually, yes, for the original analysis it was, so lets keep it)
+#df_gdp = df_gdp.drop(columns=['Continent_Name'])
+
+# clean the country code table by 1. dropping irrelevant columns, 2. renaming columns to match the other tables, 3. dropping duplicates
+df_country_code = df_country_code[['Three_Letter_Country_Code', 'Country_Name', 'Continent_Name']]
+df_country_code.columns = ['Code', 'Country', 'Continent']
+# problem with 3. the duplicates arise because countries like Georgia belong to Europe and Asia. If we drop one, we are making a choice.
+# If we keep both, then we will need to decide how to color Georgia in the scatterplot colored by continents...
+
+
+
 
 # 3. Filter for the Target Year
 df_alcohol_year = df_alcohol[df_alcohol['Year'] == TARGET_YEAR]
@@ -37,8 +48,10 @@ print(f"df_gdp_year:     {len(df_gdp_year)} rows")
 # df_country_code is the universe -- it's the most complete list of valid
 # ISO codes, so every code in the other tables should be a subset of it.
 # ---------------------------------------------------------
-tracker = df_country_code[['Three_Letter_Country_Code']].dropna().drop_duplicates()
-tracker.columns = ['Code']
+tracker = df_country_code[['Code']].dropna().drop_duplicates()
+# dropping duplicate ISOs here is fine because the tracker only cares about countries, not continents
+# We don't care that Georgia belongs to Europe and Asia, we just care about its unique ISO code.
+#tracker.columns = ['Code']
 print(f"ISO reference universe: {len(tracker)} codes")
 
 # Attach a readable country name from the reference table itself -- it's the
@@ -46,8 +59,8 @@ print(f"ISO reference universe: {len(tracker)} codes")
 # column name doesn't match your CSV, run print(df_country_code.columns)
 # to find the right one -- 'Country_Name' is standard for this particular
 # reference file.)
-name_lookup = df_country_code[['Three_Letter_Country_Code', 'Country_Name']].dropna(subset=['Three_Letter_Country_Code'])
-name_lookup = name_lookup.drop_duplicates(subset='Three_Letter_Country_Code')
+name_lookup = df_country_code[['Code', 'Country']].dropna(subset=['Code'])
+name_lookup = name_lookup.drop_duplicates(subset='Code')
 name_lookup.columns = ['Code', 'Country']
 tracker = tracker.merge(name_lookup, on='Code', how='left')
 
@@ -82,9 +95,9 @@ final_df = final_df.dropna(subset=['Code'])
 print('size of final_df after dropping rows with missing ISO codes:', final_df.shape)
 
 # 5. Prepare Continent Data & Deduplicate
-df_country_code_clean = df_country_code[['Three_Letter_Country_Code', 'Continent_Name']].copy()
-df_country_code_clean.columns = ['Code', 'Continent']
-df_country_code_clean = df_country_code_clean.drop_duplicates(subset=['Code'], keep='first')
+#df_country_code_clean = df_country_code[['Three_Letter_Country_Code', 'Continent_Name']].copy()
+#df_country_code_clean.columns = ['Code', 'Continent']
+df_country_code_clean = df_country_code.drop_duplicates(subset=['Code'], keep='first')
 
 # 6. Second Merge: Add Continent Column
 final_df_step2 = pd.merge(final_df, df_country_code_clean, on='Code', how='inner')
@@ -98,6 +111,9 @@ if EXCLUDE_LOW_ALCOHOL:
 total_countries_after_filter = len(final_df_all)
 print(f"\nTotal Countries in {TARGET_YEAR}: {total_countries}")
 print(f"Countries with >= {alcohol_threshold} litre of alcohol consumption: {total_countries_after_filter}")
+
+
+
 
 # ---------------------------------------------------------
 # AUDIT: which countries are missing from the final sample, and why
