@@ -22,9 +22,18 @@ survives stratification.
 | Upper-Middle quartile | −0.15 | 42 |
 | High Income quartile | −0.03 | 42 |
 
+![Alcohol consumption vs life expectancy, coloured by GDP quartile](outputs/alcohol_vs_life_by_gdp_bracket.png)
+
+Each colour is an income quartile. Within any one quartile the cloud is flat-to-declining;
+the upward pooled tilt comes from the quartiles sitting at different heights — richer bands
+are both further right (more alcohol) and higher up (longer life).
+
 Supporting pooled correlations: alcohol ↔ GDP = **+0.41**, life expectancy ↔ GDP = **+0.71**.
 Richer countries both drink more *and* live longer, which manufactures the positive pooled
-alcohol–longevity association. Condition on wealth and it vanishes.
+alcohol–longevity association. Condition on wealth and it vanishes. The GDP ↔ life-expectancy
+half of that is the familiar Preston curve:
+
+![Life expectancy vs GDP per capita (log scale)](outputs/life_vs_gdp.png)
 
 Splitting by **continent** instead does **not** produce a clean reversal:
 
@@ -156,7 +165,7 @@ Requires Python 3.13, pandas 3.0, matplotlib 3.11 (pinned in `requirements.txt`)
 python3.13 -m venv .venv
 .venv/bin/python -m pip install -r requirements.txt
 
-.venv/bin/python analysis_extended.py     # prints the waterfall + correlations, writes outputs/, shows 5 plots
+.venv/bin/python analysis_extended.py     # waterfall + correlations; writes outputs/ (tracker CSV + 2 figures); shows 5 plots
 .venv/bin/python analysis_basic.py        # the minimal version
 ```
 
@@ -172,7 +181,10 @@ analysis_basic.py       minimal pipeline
 analysis_extended.py    same pipeline, explicit cleaning + membership tracker + assertions
 requirements.txt        pinned dependencies
 data/                   the four source CSVs + provider readmes
-outputs/                country_tracker.csv (written by analysis_extended.py)
+outputs/                written by analysis_extended.py:
+                          country_tracker.csv               per-country in/out flags at each stage
+                          alcohol_vs_life_by_gdp_bracket.png headline figure
+                          life_vs_gdp.png                    Preston curve
 ```
 
 ---

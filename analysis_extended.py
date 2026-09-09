@@ -183,8 +183,10 @@ print("----------------------------------------\n")
 # All five plots below are the same figure -- 10x6, alpha 0.7, black
 # edges, dashed grid -- differing only in columns, log scaling, and
 # whether points are split by a grouping column. Build them from one place.
+# Pass save_as="name.png" for the couple of plots worth keeping in outputs/;
+# the rest are just for eyeballing during a run.
 # ---------------------------------------------------------
-def scatter_plot(x, y, xlabel, ylabel, title, logx=False, group_col=None, **scatter_kw):
+def scatter_plot(x, y, xlabel, ylabel, title, logx=False, group_col=None, save_as=None, **scatter_kw):
     plt.figure(figsize=(10, 6))
     if group_col is None:
         plt.scatter(analytic_df[x], analytic_df[y], alpha=0.7, edgecolors='k', **scatter_kw)
@@ -199,6 +201,9 @@ def scatter_plot(x, y, xlabel, ylabel, title, logx=False, group_col=None, **scat
     plt.ylabel(ylabel, fontsize=12)
     plt.grid(True, linestyle='--', alpha=0.6)
     plt.tight_layout()
+    if save_as:
+        Path('outputs').mkdir(exist_ok=True)
+        plt.savefig(f'outputs/{save_as}', dpi=120, bbox_inches='tight')
     plt.show()
 
 
@@ -219,11 +224,12 @@ scatter_plot(
     group_col='Continent',
 )
 
-# PLOT 3: life expectancy vs GDP (log scale)
+# PLOT 3: life expectancy vs GDP (log scale) -- the Preston curve; half of why
+# GDP confounds the alcohol/life-expectancy relationship. Kept in outputs/.
 scatter_plot(
     'GDP_per_Capita', 'Life_Expectancy', GDP_LABEL, LIFE_LABEL,
     f'Life Expectancy vs GDP per Capita ({TARGET_YEAR})',
-    logx=True, color='mediumseagreen',
+    logx=True, color='mediumseagreen', save_as='life_vs_gdp.png',
 )
 
 # PLOT 4: alcohol vs GDP (log scale)
@@ -233,11 +239,12 @@ scatter_plot(
     logx=True, color='coral',
 )
 
-# PLOT 5: alcohol vs life expectancy, split by GDP bracket
+# PLOT 5: alcohol vs life expectancy, split by GDP bracket -- the headline
+# figure: the pooled upward tilt is between the wealth bands, not within them.
 scatter_plot(
     'Alcohol_Consumption', 'Life_Expectancy', ALCOHOL_LABEL, LIFE_LABEL,
     f'Alcohol Consumption vs Life Expectancy by GDP Bracket ({TARGET_YEAR})',
-    group_col='GDP_Category',
+    group_col='GDP_Category', save_as='alcohol_vs_life_by_gdp_bracket.png',
 )
 
 # ===========================================================
