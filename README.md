@@ -199,3 +199,20 @@ outputs/                written by analysis_extended.py:
   spelled it differently; for this year and these sources there are no such mismatches (the
   first merge loses rows only to missing ISO codes).
 - `2019` is the last year with near-complete coverage across all three sources.
+
+---
+
+## License & data
+
+The **code** in this repository is released under the MIT License (see [`LICENSE`](LICENSE)).
+
+The **datasets** under `data/` are not mine and are not covered by that license. They are
+redistributed here unchanged for a small educational example:
+
+- Alcohol consumption, life expectancy — WHO Global Health Observatory, compiled by
+  [Our World in Data](https://ourworldindata.org/)
+- GDP per capita — World Bank, compiled by Our World in Data
+- ISO country / continent codes — a public country-codes list
+
+Each file's provider documentation is kept next to it (`data/*.readme.md`). If you reuse the
+data, check and credit those original sources under their own terms.
